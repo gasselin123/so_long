@@ -6,7 +6,7 @@
 /*   By: gasselin <gasselin@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/28 15:23:00 by gasselin          #+#    #+#             */
-/*   Updated: 2021/07/15 15:15:35 by gasselin         ###   ########.fr       */
+/*   Updated: 2022/01/18 10:12:47 by gasselin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "./ft_printf/ft_printf.h"
 # include "./ft_printf/libft/libft.h"
-# include <mlx.h>
+# include "./mlx/mlx.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>

@@ -6,47 +6,50 @@
 #    By: gasselin <gasselin@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/22 11:49:55 by gasselin          #+#    #+#              #
-#    Updated: 2021/07/15 14:35:20 by gasselin         ###   ########.fr        #
+#    Updated: 2022/01/18 10:14:50 by gasselin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= so_long
-MYLIB		= mylib.a
+NAME =		so_long
+OBJS_PATH =	objs
 
-RM			= rm -rf
-CC			= gcc
-FLAGS		= -g -Wall -Wextra -Werror 
-FLAGSMX		= -lmlx -framework OpenGL -framework AppKit
-INCS		= .
+SRCS =		so_long.c move_enemy.c ft_is_map_valid.c ft_manage_timer.c \
+			ft_move.c ft_print_map.c ft_utils.c ft_utils2.c
 
-SRCS		= so_long.c \
-				ft_is_map_valid.c \
-				ft_print_map.c \
-				ft_move.c \
-				ft_utils.c \
-				ft_utils2.c \
-				move_enemy.c \
-				ft_manage_timer.c
+CC =		gcc
+CFLAGS =	-Wall -Werror -Wextra -c -g
+INCLUDES =	-Imlx -I.
+LIBS =		-Lmlx -lmlx -framework OpenGL -framework AppKit
+OBJS =		$(SRCS:.c=.o)
 
-OBJS		= ${SRCS:.c=.o}
+SRCS_FULL =	$(addprefix srcs/, $(SRCS))
+OBJS_FULL =	$(addprefix objs/, $(OBJS))
 
-.c.o:
-			${CC} ${FLAGS} -c $< -o ${<:.c=.o} -I${INCS}
+all: $(OBJS_PATH) $(NAME)
 
-${NAME} : ${OBJS}
-			$(MAKE) bonus -C ./ft_printf
-			ar -rcs ${MYLIB} ${OBJS}
-			${CC} ${FLAGS} ${MYLIB} ${FLAGSMX} -o ${NAME} ft_printf/libftprintf.a
+$(OBJS_PATH):
+	@mkdir -p $(OBJS_PATH)
+	@echo Created: Object directory
 
-all : ${NAME}
+$(NAME): $(OBJS_FULL)
+	@make re --no-print-directory -C ./ft_printf
+	@$(CC) $(OBJS_FULL) $(LIBS) -o $(NAME) ./ft_printf/libftprintf.a
+	@echo "\\n\033[32;1m SO_LONG HAS BEEN GENERATED \033[0m \\n"
 
-clean :
-			$(MAKE) clean -C ./ft_printf
-			${RM} ${OBJS}
+$(OBJS_PATH)/%.o: ./%.c
+	@echo "Created: $@\033[1A\033[M"
+	@$(CC) $(CFLAGS) $(INCLUDES) $< -o $@
 
-fclean : clean
-			$(MAKE) fclean -C ./ft_printf
-			${RM} ${MYLIB}
-			${RM} ${NAME}
+clean:
+	@make clean --no-print-directory -C ./ft_printf
+	@rm -rf $(OBJS_FULL) $(OBJS_PATH) 
+	@echo "\033[34;1m CLEANED OBJECT FILES \033[0m"
 
-re : fclean all
+fclean: clean
+	@make fclean --no-print-directory -C ./ft_printf
+	@rm -f $(NAME)
+	@echo "\033[34;1m CLEANED FDF \033[0m"
+
+re: fclean all
+
+.PHONY: all clean fclean re
