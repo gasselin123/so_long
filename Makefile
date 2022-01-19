@@ -6,7 +6,7 @@
 #    By: gasselin <gasselin@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/22 11:49:55 by gasselin          #+#    #+#              #
-#    Updated: 2022/01/18 10:14:50 by gasselin         ###   ########.fr        #
+#    Updated: 2022/01/19 15:28:13 by gasselin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRCS =		so_long.c move_enemy.c ft_is_map_valid.c ft_manage_timer.c \
 CC =		gcc
 CFLAGS =	-Wall -Werror -Wextra -c -g
 INCLUDES =	-Imlx -I.
-LIBS =		-Lmlx -lmlx -framework OpenGL -framework AppKit
+LIBS =		-lmlx -framework OpenGL -framework AppKit
 OBJS =		$(SRCS:.c=.o)
 
 SRCS_FULL =	$(addprefix srcs/, $(SRCS))
@@ -48,7 +48,7 @@ clean:
 fclean: clean
 	@make fclean --no-print-directory -C ./ft_printf
 	@rm -f $(NAME)
-	@echo "\033[34;1m CLEANED FDF \033[0m"
+	@echo "\033[34;1m CLEANED SO_LONG \033[0m"
 
 re: fclean all
 
